@@ -1,0 +1,91 @@
+/** @format */
+// import { Component } from 'react';
+// import fetch from 'isomorphic-fetch';
+// import Link from 'next/link';
+// class Home extends Component {
+// 	static async getInitialProps(ctx) {
+// 		console.log('should');
+// 		let stories;
+// 		try {
+// 			const res = await fetch('http://node-hnapi.herokuapp.com/news?page=1');
+// 			console.log('res : ', res);
+// 			stories = await res.json();
+// 		} catch (err) {
+// 			console.log('ERROR : ', err);
+// 			stories = [];
+// 		}
+// 		return {
+// 			stories,
+// 		};
+// 	}
+// 	render() {
+// 		console.log('home : ', this.props);
+// 		return (
+// 			<div>
+// 				Hacker News: <Link href='/stories'>Stories</Link>
+// 				{JSON.stringify(this.props.stories)}
+// 			</div>
+// 		);
+// 	}
+// }
+
+// export default Home;
+// import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Error from 'next/error';
+import fetch from 'isomorphic-unfetch';
+// import { getNews } from './api';
+const IndexPage = ({ stories }) => {
+	// const [stories, setStories] = useState([]);
+	// const getStories = async () => {
+	// 	let stories;
+	// 	try {
+	// 		const res = await getNews();
+	// 		stories = await res.json();
+	// 	} catch (err) {
+	// 		console.log('ERROR : ', err);
+	// 		stories = [];
+	// 	}
+	// 	setStories(stories);
+	// };
+	// useEffect(() => {
+	// 	getStories();
+	// }, []);
+	console.log('IndexPage : ', stories);
+	if (!!stories.error) {
+		return <Error statusCode={503} />;
+	}
+	return (
+		<div>
+			Hacker News :<Link href='/stories'>go to Stories</Link>
+		</div>
+	);
+};
+// export const getStaticProps = async (context) => {
+// 	let stories;
+// 	try {
+// 		const res = await getNews();
+// 		stories = await res.json();
+// 	} catch (err) {
+// 		console.log('ERROR : ', err);
+// 		stories = [];
+// 	}
+// 	return {
+// 		props: { stories },
+// 	};
+// };
+IndexPage.getInitialProps = async () => {
+	let stories;
+	try {
+		const res = await fetch('https://api.vercel.com/v1/frameworks');
+		stories = await res.json();
+	} catch (err) {
+		console.log('ERROR : ', err);
+		stories = [];
+	}
+	return {
+		stories,
+	};
+};
+
+export default IndexPage;
