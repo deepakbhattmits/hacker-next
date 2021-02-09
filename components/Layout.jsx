@@ -36,6 +36,8 @@ const Layout = ({ children, title, description, backButton }) => (
 			nav {
 				background: #f60;
 				padding: 1em;
+				position: sticky;
+				top: 0;
 			}
 			nav > * {
 				display: inline-block;
