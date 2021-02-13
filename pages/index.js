@@ -7,17 +7,20 @@ import StoryList from '../components/StoryList';
 import Layout from '../components/Layout';
 const IndexPage = ({ stories, page }) => {
 	useEffect(() => {
+		console.log('run');
 		if ('serviceWorker' in navigator) {
+			console.log('inside if check', navigator.serviceWorker);
 			navigator.serviceWorker
 				.register('/service-worker.js')
-				.then((res) => {
-					console.log('service worker registration successful : ', res);
+				.then((registration) => {
+					console.log('service worker registration successful', registration);
 				})
 				.catch((err) => {
-					console.warn('service worker registration failed : ', err.message);
+					console.warn('service worker registration failed', err.message);
 				});
 		}
 	}, []);
+
 	if (!!stories.length === 0) {
 		return <Error statusCode={503} />;
 	}

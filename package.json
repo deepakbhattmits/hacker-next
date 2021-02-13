@@ -7,8 +7,9 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "node server.js",
-		"start": "set NODE_ENV=production && node server.js",
-		"build": "next build"
+		"start": "SET NODE_ENV=production & node server.js",
+		"build": "next build",
+		"deploy": "now --public"
 	},
 	"dependencies": {
 		"isomorphic-fetch": "^3.0.0",
